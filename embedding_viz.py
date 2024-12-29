@@ -68,6 +68,12 @@ scatter = ax.scatter(
     s=100
 )
 
+# Add number labels for each point
+texts = [
+    ax.text(x, y, str(i), fontsize=8, ha='right', va='bottom')
+    for i, (x, y) in enumerate(initial_transformed)
+]
+
 # Set plot limits based on the final transformed embeddings
 ax.set_xlim(final_transformed[:, 0].min() - 1, final_transformed[:, 0].max() + 1)
 ax.set_ylim(final_transformed[:, 1].min() - 1, final_transformed[:, 1].max() + 1)
@@ -83,7 +89,9 @@ def update(frame):
     step, transformed = all_transformed_embeddings[frame]
     scatter.set_offsets(transformed)
     ax.set_title(f"Embedding Evolution - Step {step}")
-    return scatter,
+    for i, (x, y) in enumerate(transformed):
+        texts[i].set_position((x, y + 0.2))  # Adjust the offset as needed
+    return (scatter,) + tuple(texts)
 
 # Create animation
 anim = FuncAnimation(fig, update, frames=len(all_transformed_embeddings), interval=200, blit=True)
