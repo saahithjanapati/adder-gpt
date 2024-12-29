@@ -25,4 +25,15 @@ The following GIF displays evolution of token embeddings correspoding to the dig
 ![Evolution of Digit Embeddings](embedding_evolution.gif)
 
 
-## 
+## GPT Config
+The following config was used for the GPT model saved in `adder_gpt_state_dict.pth`:
+```
+class GPTConfig:
+    vocab_size = 14
+    block_size = 22
+    n_embd = 64
+    n_head = 8
+    n_layer = 6
+    use_bias = True
+    dropout = 0.1
+```
